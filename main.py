@@ -1,6 +1,6 @@
 import pygame
 import random
-from Tetris import Piece
+from Piece import Piece, shapes, shape_colors
  
 # creating the data structure for pieces
 # setting up global vars
@@ -28,116 +28,6 @@ block_size = 30
  
 top_left_x = (s_width - play_width) // 2
 top_left_y = s_height - play_height
- 
- 
-# SHAPE FORMATS
- 
-S = [['.....',
-      '......',
-      '..00..',
-      '.00...',
-      '.....'],
-     ['.....',
-      '..0..',
-      '..00.',
-      '...0.',
-      '.....']]
- 
-Z = [['.....',
-      '.....',
-      '.00..',
-      '..00.',
-      '.....'],
-     ['.....',
-      '..0..',
-      '.00..',
-      '.0...',
-      '.....']]
- 
-I = [['..0..',
-      '..0..',
-      '..0..',
-      '..0..',
-      '.....'],
-     ['.....',
-      '0000.',
-      '.....',
-      '.....',
-      '.....']]
- 
-O = [['.....',
-      '.....',
-      '.00..',
-      '.00..',
-      '.....']]
- 
-J = [['.....',
-      '.0...',
-      '.000.',
-      '.....',
-      '.....'],
-     ['.....',
-      '..00.',
-      '..0..',
-      '..0..',
-      '.....'],
-     ['.....',
-      '.....',
-      '.000.',
-      '...0.',
-      '.....'],
-     ['.....',
-      '..0..',
-      '..0..',
-      '.00..',
-      '.....']]
- 
-L = [['.....',
-      '...0.',
-      '.000.',
-      '.....',
-      '.....'],
-     ['.....',
-      '..0..',
-      '..0..',
-      '..00.',
-      '.....'],
-     ['.....',
-      '.....',
-      '.000.',
-      '.0...',
-      '.....'],
-     ['.....',
-      '.00..',
-      '..0..',
-      '..0..',
-      '.....']]
- 
-T = [['.....',
-      '..0..',
-      '.000.',
-      '.....',
-      '.....'],
-     ['.....',
-      '..0..',
-      '..00.',
-      '..0..',
-      '.....'],
-     ['.....',
-      '.....',
-      '.000.',
-      '..0..',
-      '.....'],
-     ['.....',
-      '..0..',
-      '.00..',
-      '..0..',
-      '.....']]
- 
-shapes = [S, Z, I, O, J, L, T]
-shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
-# index 0 - 6 represent shape
- 
  
 
 def create_grid(locked_positions={}):
@@ -172,14 +62,14 @@ def valid_space(shape, grid):
                 return False
     return True 
 
-def check_lost(positions):
+def check_lost(positions) -> bool:
     for pos in positions:
         x, y = pos
         if y < 1:
             return True
     return False
  
-def get_shape():
+def get_shape() -> Piece:
     return Piece(5,0,random.choice(shapes))
  
  
@@ -277,6 +167,8 @@ def main(win):
 def main_menu(win):
     main(win)
 
-win = pygame.display.set_mode((s_width,s_height))
-pygame.display.set_caption('Tetris')
-main_menu(win)
+if __name__ == "__main__":
+    win = pygame.display.set_mode((s_width,s_height))
+    pygame.display.set_caption('Tetris')
+    
+    main_menu(win)
